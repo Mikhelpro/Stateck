@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Email OTP - Secure Authentication via Email | Stateck Labs Ethiopia</title>
+  <meta name="description" content="Email OTP authentication service for Ethiopian developers. Add secure two-factor authentication to your apps with simple API integration.">
+  <meta name="keywords" content="OTP, email verification, two-factor authentication, 2FA, Ethiopia, API, secure login, Addis Ababa, one-time password">
+  <meta name="author" content="Stateck Labs">
+  <meta name="robots" content="index, follow">
+  
+  <!-- Geo Meta Tags for Ethiopia -->
+  <meta name="geo.region" content="ET-AA">
+  <meta name="geo.placename" content="Addis Ababa">
+  <meta name="geo.position" content="9.0320;38.7469">
+  <meta name="ICBM" content="9.0320, 38.7469">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://statecklabs.pro.et/email-otp.html">
+  <meta property="og:title" content="Email OTP - Secure Authentication for Ethiopian Apps">
+  <meta property="og:description" content="Add secure email OTP verification to your applications. Simple API for Ethiopian developers.">
+  <meta property="og:image" content="https://statecklabs.pro.et/image/Backstateck.png">
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Email OTP - Secure Authentication">
+  <meta name="twitter:description" content="Add secure email OTP verification to your applications.">
+  <meta name="twitter:image" content="https://statecklabs.pro.et/image/Backstateck.png">
+  
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://statecklabs.pro.et/email-otp.html">
+  
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebAPI",
+    "name": "Email OTP API",
+    "description": "One-time password authentication via email for Ethiopian developers",
+    "provider": {
+      "@type": "Organization",
+      "name": "Stateck Labs",
+      "url": "https://statecklabs.pro.et"
+    },
+    "documentation": "https://statecklabs.pro.et/email-otp.html",
+    "programmingLanguage": "JavaScript, Python, PHP, Java, C#"
+  }
+  </script>
+  
+  <link rel="icon" type="image/png" href="image/Backstateck.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: #ffffff;
+      color: #111;
+      font-family: 'Roboto', sans-serif;
+      font-weight: 500;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    h1, h2, h3, h4 { font-family: 'Montserrat', sans-serif; font-weight: 800; letter-spacing: -0.02em; }
+    :root { 
+      --electric-blue: #2D9CFF; 
+      --electric-blue-dark: #1a7ec9;
+      --electric-blue-light: #e0f0ff;
+      --border-light: #eaeef2; 
+    }
+    
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+    
+    .animate-fade-up { animation: fadeInUp 0.8s ease forwards; opacity: 0; }
+    .animate-fade { animation: fadeIn 1s ease forwards; opacity: 0; }
+    .delay-1 { animation-delay: 0.2s; }
+    .delay-2 { animation-delay: 0.4s; }
+    .delay-3 { animation-delay: 0.6s; }
+    
+    .container { 
+      width: 100%;
+      max-width: 100%;
+      margin: 0 auto; 
+      padding: 0 80px; 
+    }
+    body { padding-top: 90px; }
+    
+    .btn-cta {
+      background: var(--electric-blue);
+      color: white;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 1.1rem;
+      padding: 14px 38px;
+      border-radius: 50px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 18px -8px rgba(45,156,255,0.4);
+      text-decoration: none;
+      display: inline-block;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+    .btn-cta::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      transition: left 0.5s ease;
+      z-index: -1;
+    }
+    .btn-cta:hover::before { left: 100%; }
+    .btn-cta:hover {
+      background: #1a7ec9;
+      transform: translateY(-3px);
+      box-shadow: 0 12px 25px -10px rgba(45,156,255,0.5);
+    }
+    .btn-cta.outline {
+      background: transparent;
+      color: var(--electric-blue);
+      border: 2px solid var(--electric-blue);
+      box-shadow: none;
+    }
+    .btn-cta.outline:hover {
+      background: var(--electric-blue-light);
+      transform: translateY(-3px);
+    }
+    
+    .navbar {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 92%;
+      max-width: 1600px;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(14px);
+      border: 1px solid rgba(45,156,255,0.15);
+      border-radius: 60px;
+      padding: 14px 36px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      box-shadow: 0 4px 20px -8px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+    }
+    .navbar.scrolled {
+      background: rgba(255,255,255,0.98);
+      box-shadow: 0 4px 20px -8px rgba(0,0,0,0.15);
+    }
+    .logo img { width: 150px; height: auto; display: block; transition: transform 0.3s ease; }
+    .logo:hover img { transform: scale(1.02); }
+    
+    .nav-links {
+      display: flex;
+      gap: 40px;
+      align-items: center;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: #1a1a1a;
+      font-size: 1.05rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--electric-blue);
+      transition: width 0.3s ease;
+    }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-links a:hover { color: var(--electric-blue); }
+    .nav-links .btn-cta { padding: 8px 28px; font-size: 0.95rem; margin-left: 0; }
+    .nav-links .btn-cta::after { display: none; }
+    
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.8rem;
+      color: var(--electric-blue);
+      cursor: pointer;
+      padding: 8px;
+      transition: transform 0.3s ease;
+    }
+    .mobile-menu-btn:hover { transform: scale(1.1); }
+    .mobile-menu-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 999;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+    .mobile-menu-overlay.active { opacity: 1; visibility: visible; }
+    .mobile-dropdown {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 80%;
+      max-width: 320px;
+      height: 100%;
+      background: white;
+      z-index: 1002;
+      padding: 100px 30px 40px;
+      box-shadow: -5px 0 30px rgba(0,0,0,0.1);
+      transition: right 0.3s ease;
+      overflow-y: auto;
+    }
+    .mobile-dropdown.active { right: 0; }
+    .mobile-dropdown .close-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: none;
+      border: none;
+      font-size: 1.8rem;
+      color: var(--electric-blue);
+      cursor: pointer;
+    }
+    .mobile-dropdown a {
+      display: block;
+      padding: 16px 0;
+      text-decoration: none;
+      color: #1a1a1a;
+      font-size: 1.2rem;
+      font-weight: 600;
+      border-bottom: 1px solid #eaeef2;
+      transition: all 0.3s ease;
+    }
+    .mobile-dropdown a:hover { color: var(--electric-blue); padding-left: 10px; }
+    .mobile-dropdown .btn-cta {
+      display: inline-block;
+      margin-top: 20px;
+      text-align: center;
+      width: 100%;
+      padding: 14px;
+    }
+    
+    .platform-hero { 
+      padding: 70px 0 90px; 
+      background: linear-gradient(135deg, #f8fcff 0%, #e8f4fe 100%); 
+      border-radius: 48px; 
+      margin-bottom: 60px; 
+      text-align: center; 
+      position: relative;
+      overflow: hidden;
+    }
+    .platform-hero h1 { 
+      font-size: 3.8rem; 
+      margin-bottom: 20px; 
+      position: relative;
+      z-index: 1;
+    }
+    .platform-hero h1 span { 
+      color: var(--electric-blue);
+      position: relative;
+      display: inline-block;
+    }
+    .platform-hero h1 span::after {
+      content: '';
+      position: absolute;
+      bottom: 5px;
+      left: 0;
+      width: 100%;
+      height: 8px;
+      background: rgba(45,156,255,0.2);
+      border-radius: 4px;
+      z-index: -1;
+    }
+    .platform-hero p { 
+      font-size: 1.2rem; 
+      color: #4a5a6a; 
+      max-width: 750px; 
+      margin: 0 auto 30px; 
+      line-height: 1.7;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .features-grid { 
+      display: grid; 
+      grid-template-columns: repeat(3, 1fr); 
+      gap: 35px; 
+      margin: 50px 0; 
+    }
+    .feature-card { 
+      background: white; 
+      border-radius: 32px; 
+      padding: 40px 30px; 
+      border: 1px solid var(--border-light); 
+      text-align: center; 
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      overflow: hidden;
+    }
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--electric-blue), transparent);
+      transform: scaleX(0);
+      transition: transform 0.4s ease;
+    }
+    .feature-card:hover::before { transform: scaleX(1); }
+    .feature-card:hover { 
+      transform: translateY(-8px); 
+      border-color: var(--electric-blue); 
+      box-shadow: 0 25px 45px -15px rgba(45,156,255,0.25);
+    }
+    .feature-icon { 
+      width: 90px; 
+      height: 90px; 
+      border-radius: 50%; 
+      background: linear-gradient(135deg, rgba(45,156,255,0.1), rgba(45,156,255,0.05));
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+      margin: 0 auto 20px; 
+      transition: all 0.3s ease;
+    }
+    .feature-card:hover .feature-icon {
+      background: linear-gradient(135deg, rgba(45,156,255,0.2), rgba(45,156,255,0.1));
+      transform: scale(1.05);
+    }
+    .feature-icon i { font-size: 2.4rem; color: var(--electric-blue); transition: transform 0.3s ease; }
+    .feature-card:hover .feature-icon i { transform: scale(1.1); }
+    .feature-card h3 { font-size: 1.5rem; margin-bottom: 15px; }
+    .feature-card p { font-size: 1rem; color: #4a5568; line-height: 1.6; }
+    
+    .demo-section {
+      background: linear-gradient(135deg, #e8f4fe 0%, #dceaf5 100%);
+      border-radius: 48px;
+      padding: 50px;
+      margin: 50px 0;
+      text-align: center;
+      border: 1px solid rgba(45,156,255,0.2);
+    }
+    .demo-section h3 { font-size: 1.5rem; margin-bottom: 15px; }
+    .demo-section p { font-size: 1rem; margin-bottom: 25px; color: #4a5568; }
+    .demo-form {
+      max-width: 450px;
+      margin: 0 auto;
+    }
+    .demo-input {
+      width: 100%;
+      padding: 16px 22px;
+      border: 1px solid #d4deec;
+      border-radius: 50px;
+      font-size: 1rem;
+      margin-bottom: 15px;
+      transition: all 0.3s ease;
+    }
+    .demo-input:focus {
+      outline: none;
+      border-color: var(--electric-blue);
+      box-shadow: 0 0 0 3px rgba(45,156,255,0.1);
+    }
+    
+    .code-section {
+      background: #1a1a2e;
+      border-radius: 28px;
+      padding: 30px;
+      margin: 50px 0;
+      overflow-x: auto;
+    }
+    .code-section h3 {
+      color: white;
+      margin-bottom: 20px;
+      font-size: 1.3rem;
+      text-align: center;
+    }
+    .code-block {
+      color: #00ff9d;
+      font-family: monospace;
+      font-size: 0.85rem;
+      line-height: 1.6;
+      white-space: pre-wrap;
+    }
+    
+    .pricing-grid { 
+      display: grid; 
+      grid-template-columns: repeat(2, 1fr); 
+      gap: 30px; 
+      margin: 50px 0; 
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .pricing-card { 
+      background: white; 
+      border-radius: 32px; 
+      padding: 40px 30px; 
+      border: 1px solid var(--border-light); 
+      text-align: center; 
+      position: relative; 
+      display: flex; 
+      flex-direction: column; 
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .pricing-card:hover { 
+      transform: translateY(-10px); 
+      border-color: var(--electric-blue); 
+      box-shadow: 0 30px 50px -20px rgba(45,156,255,0.35);
+    }
+    .pricing-card.popular { 
+      border: 2px solid var(--electric-blue);
+      box-shadow: 0 10px 30px -15px rgba(45,156,255,0.3);
+    }
+    .popular-badge { 
+      position: absolute; 
+      top: -12px; 
+      left: 50%; 
+      transform: translateX(-50%); 
+      background: linear-gradient(135deg, var(--electric-blue), var(--electric-blue-dark));
+      color: white; 
+      padding: 6px 20px; 
+      border-radius: 30px; 
+      font-size: 0.75rem; 
+      font-weight: 800; 
+      white-space: nowrap;
+      box-shadow: 0 4px 10px rgba(45,156,255,0.3);
+    }
+    .pricing-icon { 
+      font-size: 3.2rem; 
+      margin-bottom: 15px; 
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .pricing-card:hover .pricing-icon { transform: scale(1.15); }
+    .pricing-card h3 { font-size: 1.6rem; margin-bottom: 8px; }
+    .price { 
+      font-size: 2.1rem; 
+      font-weight: 800; 
+      color: var(--electric-blue); 
+      margin: 20px 0; 
+    }
+    .price span { font-size: 0.85rem; color: #6c757d; }
+    .pricing-card ul { 
+      list-style: none; 
+      margin: 20px 0; 
+      text-align: left; 
+      flex-grow: 1; 
+    }
+    .pricing-card li { 
+      padding: 10px 0; 
+      font-size: 0.9rem; 
+      display: flex; 
+      align-items: center; 
+      gap: 12px; 
+      color: #4a5568; 
+    }
+    .pricing-card li i { color: var(--electric-blue); width: 20px; }
+    .pricing-card li i.fa-times { color: #ccc; }
+    
+    .note-box {
+      background: #fff9e6;
+      border-left: 4px solid #FFD700;
+      padding: 20px 30px;
+      border-radius: 16px;
+      margin: 30px 0;
+      text-align: center;
+    }
+    .note-box p {
+      color: #856404;
+      font-size: 0.9rem;
+    }
+    .note-box i {
+      color: #FFD700;
+      margin-right: 8px;
+    }
+    
+    .faq-container { max-width: 1100px; margin: 50px auto 0; }
+    .faq-item {
+      background: white;
+      border: 1px solid var(--border-light);
+      border-radius: 28px;
+      margin-bottom: 20px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+    .faq-item:hover {
+      border-color: var(--electric-blue);
+      box-shadow: 0 10px 25px -12px rgba(45,156,255,0.2);
+    }
+    .faq-question {
+      padding: 28px 35px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .faq-question:hover { background: rgba(45,156,255,0.02); }
+    .faq-question h3 { font-size: 1.2rem; margin: 0; font-weight: 700; }
+    .faq-question i { 
+      color: var(--electric-blue); 
+      transition: all 0.3s ease; 
+      font-size: 1.2rem;
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: rgba(45,156,255,0.1);
+    }
+    .faq-item.active .faq-question i { 
+      transform: rotate(45deg); 
+      background: var(--electric-blue); 
+      color: white; 
+    }
+    .faq-answer { padding: 0 35px 28px; color: #4a5a6a; line-height: 1.7; display: none; font-size: 1rem; }
+    .faq-answer.show { display: block; animation: fadeInUp 0.4s ease; }
+    
+    .cta-section { 
+      background: linear-gradient(135deg, #f8fcff 0%, #e8f4fe 100%); 
+      border-radius: 48px; 
+      padding: 65px; 
+      text-align: center; 
+      margin: 60px 0;
+    }
+    .cta-section h2 { font-size: 2.3rem; margin-bottom: 20px; }
+    .cta-section p { font-size: 1.1rem; margin-bottom: 35px; color: #4a5a6a; }
+    .cta-section .btn-cta { animation: pulse 2s ease-in-out infinite; }
+    
+    .footer {
+      background: #f5f9ff;
+      border-radius: 48px 48px 0 0;
+      padding: 60px 60px 40px;
+      margin-top: 80px;
+    }
+    .footer-grid {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 50px;
+      margin-bottom: 50px;
+    }
+    .footer-brand p { max-width: 360px; margin-top: 20px; font-size: 0.95rem; color: #3a4a5a; line-height: 1.7; }
+    .footer-links h4, .footer-contact h4 { font-size: 1.2rem; margin-bottom: 25px; }
+    .pages-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px 30px;
+    }
+    .footer a { 
+      text-decoration: none; 
+      color: #2c3e50; 
+      font-size: 0.95rem; 
+      transition: all 0.3s ease;
+      display: inline-block;
+    }
+    .footer a:hover { color: var(--electric-blue); transform: translateX(5px); }
+    .footer-contact div {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 18px;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+    }
+    .footer-contact div:hover { transform: translateX(5px); }
+    .footer-contact i { color: var(--electric-blue); width: 24px; font-size: 1.1rem; transition: transform 0.3s ease; }
+    .footer-contact div:hover i { transform: scale(1.1); }
+    .footer-bottom { text-align: center; padding-top: 30px; border-top: 1px solid rgba(45,156,255,0.2); font-size: 0.9rem; }
+    
+    @media (max-width: 1200px) {
+      .container { padding: 0 50px; }
+    }
+    
+    @media (max-width: 1024px) {
+      .container { padding: 0 40px; }
+      .platform-hero h1 { font-size: 3rem; }
+      .pricing-grid { grid-template-columns: 1fr; gap: 30px; max-width: 500px; }
+    }
+    
+    @media (max-width: 900px) {
+      body { padding-top: 85px; }
+      .container { padding: 0 30px; }
+      .nav-links { display: none; }
+      .mobile-menu-btn { display: block; }
+      .navbar { width: 94%; padding: 12px 25px; justify-content: space-between; }
+      .logo img { width: 120px; }
+      .platform-hero h1 { font-size: 2.4rem; }
+      .platform-hero p { font-size: 1rem; }
+      .features-grid { grid-template-columns: 1fr; gap: 25px; }
+      .demo-section { padding: 30px 25px; }
+      .code-section { padding: 25px 20px; }
+      .code-block { font-size: 0.7rem; }
+      .cta-section { padding: 40px 30px; }
+      .cta-section h2 { font-size: 1.8rem; }
+      .footer { padding: 45px 35px 35px; border-radius: 40px 40px 0 0; }
+      .footer-grid { flex-direction: column; gap: 35px; }
+      .pages-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    
+    @media (max-width: 600px) {
+      body { padding-top: 80px; }
+      .container { padding: 0 20px; }
+      .navbar { width: 96%; padding: 10px 18px; border-radius: 50px; }
+      .logo img { width: 100px; }
+      .mobile-menu-btn { font-size: 1.5rem; }
+      .platform-hero { padding: 40px 20px; }
+      .platform-hero h1 { font-size: 1.8rem; }
+      .platform-hero p { font-size: 0.9rem; }
+      .feature-card { padding: 28px 22px; }
+      .feature-card h3 { font-size: 1.3rem; }
+      .feature-icon { width: 75px; height: 75px; }
+      .feature-icon i { font-size: 2rem; }
+      .pricing-card { padding: 30px 22px; }
+      .pricing-card h3 { font-size: 1.4rem; }
+      .price { font-size: 1.8rem; }
+      .demo-section { padding: 25px 20px; }
+      .demo-input { padding: 12px 18px; font-size: 0.9rem; }
+      .cta-section { padding: 35px 25px; }
+      .cta-section h2 { font-size: 1.5rem; }
+      .footer { padding: 35px 25px 30px; }
+      .faq-question { padding: 18px 22px; }
+      .faq-question h3 { font-size: 1rem; }
+      .faq-answer { padding: 0 22px 20px; font-size: 0.9rem; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar" id="navbar">
+    <a href="index.html" class="logo"><img src="image/Backstateck.png" alt="Stateck Labs logo"></a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="index.html#services">Services</a>
+      <a href="index.html#platforms">Platforms</a>
+      <a href="index.html#about">About</a>
+      <a href="index.html#faq">FAQ</a>
+      <a href="index.html#contact" class="btn-cta">Get started</a>
+    </div>
+    <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+  </nav>
+  <div class="mobile-menu-overlay" id="mobileOverlay"></div>
+  <div class="mobile-dropdown" id="mobileDropdown">
+    <button class="close-btn" id="closeMenuBtn"><i class="fas fa-times"></i></button>
+    <a href="index.html">Home</a>
+    <a href="index.html#services">Services</a>
+    <a href="index.html#platforms">Platforms</a>
+    <a href="index.html#about">About</a>
+    <a href="index.html#faq">FAQ</a>
+    <a href="index.html#contact" class="btn-cta">Get started</a>
+  </div>
+
+  <div class="container">
+    <section class="platform-hero animate-fade">
+      <h1>Email <span>OTP</span></h1>
+      <p>Enhance your application’s security with reliable, email-based one-time password authentication. Designed for seamless integration, it adds an extra layer of protection through secure verification codes and two-factor authentication.
+
+Simple to implement and fully customizable, this solution ensures a smooth user experience while safeguarding your platform against unauthorized access. Built for flexibility, it adapts easily to your system’s needs keeping both security and usability in perfect balance.</p>
+      <div>
+        <a href="index.html#contact" class="btn-cta">Contact Us</a>
+        <a href="#demo" class="btn-cta outline" style="margin-left: 16px;">Try Demo</a>
+      </div>
+    </section>
+
+    <section id="features">
+      <h2 style="font-size: 2.2rem; text-align: center; margin-bottom: 45px;" class="animate-fade-up">Key Features</h2>
+      <div class="features-grid">
+        <div class="feature-card animate-fade-up delay-1">
+          <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+          <h3>Secure Authentication</h3>
+          <p>Industry-standard encryption for OTP generation and delivery. Protect user accounts with an extra layer of security.</p>
+        </div>
+        <div class="feature-card animate-fade-up delay-2">
+          <div class="feature-icon"><i class="fas fa-bolt"></i></div>
+          <h3>Instant Delivery</h3>
+          <p>OTPs delivered to user inbox within seconds. Fast and reliable email delivery with high deliverability rates.</p>
+        </div>
+        <div class="feature-card animate-fade-up delay-3">
+          <div class="feature-icon"><i class="fas fa-code"></i></div>
+          <h3>Easy Integration</h3>
+          <p>Simple REST API with SDKs for popular programming languages. Get started in minutes with our documentation.</p>
+        </div>
+        <div class="feature-card animate-fade-up delay-1">
+          <div class="feature-icon"><i class="fas fa-sliders-h"></i></div>
+          <h3>Customizable Templates</h3>
+          <p>Brand your OTP emails with your logo, colors, and custom messages. Maintain consistent brand identity.</p>
+        </div>
+        <div class="feature-card animate-fade-up delay-2">
+          <div class="feature-icon"><i class="fas fa-chart-bar"></i></div>
+          <h3>Analytics Dashboard</h3>
+          <p>Track OTP delivery rates, expiration rates, and user verification metrics in real-time.</p>
+        </div>
+        <div class="feature-card animate-fade-up delay-3">
+          <div class="feature-icon"><i class="fas fa-globe"></i></div>
+          <h3>Global Coverage</h3>
+          <p>Send OTPs to any email address worldwide. Reliable delivery across all major email providers.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="demo" class="demo-section animate-fade-up delay-1">
+      <h3>Try the Demo</h3>
+      <p>Enter your email address to see how OTP verification works. This is a demo - not for production use.</p>
+      <div class="demo-form">
+        <input type="email" class="demo-input" placeholder="Enter your email address" id="demoEmail">
+        <button class="btn-cta" onclick="alert('Demo: OTP would be sent to ' + document.getElementById('demoEmail').value + '. In production, this would deliver a 6-digit verification code. Contact us to integrate this solution.')">Send Test OTP</button>
+      </div>
+      <p style="font-size: 0.8rem; margin-top: 15px; color: #6c757d;">Demo only - Contact us for production integration</p>
+    </section>
+
+    <section class="code-section animate-fade-up delay-2">
+      <h3>Quick Integration Example</h3>
+      <div class="code-block">
+        <pre style="color: #00ff9d; margin: 0; font-family: monospace;">
+// Example of how OTP verification works
+// Contact us to get your API key
+
+// Send OTP
+POST https://api.stateck.com/otp/send
+{
+  "email": "user@example.com"
+}
+
+// Verify OTP
+POST https://api.stateck.com/otp/verify
+{
+  "email": "user@example.com",
+  "code": "123456"
+}
+
+// Response
+{
+  "verified": true
+}</pre>
+      </div>
+    </section>
+
+    <section id="pricing">
+      <h2 style="font-size: 2.2rem; text-align: center; margin-bottom: 45px;" class="animate-fade-up">Pricing Plans</h2>
+      <div class="note-box">
+        <p><i class="fas fa-info-circle"></i> Custom pricing based on your volume requirements. Contact us for a personalized quote.</p>
+      </div>
+      <div class="pricing-grid">
+        <div class="pricing-card animate-fade-up delay-1">
+          <div class="pricing-icon"><i class="fas fa-envelope"></i></div>
+          <h3>Starter</h3>
+          <div class="price">Custom</div>
+          <ul>
+            <li><i class="fas fa-check"></i> Up to 1,000 OTPs/month</li>
+            <li><i class="fas fa-check"></i> Basic email templates</li>
+            <li><i class="fas fa-check"></i> Email support</li>
+            <li><i class="fas fa-check"></i> Basic analytics</li>
+            <li><i class="fas fa-check"></i> API access</li>
+          </ul>
+          <a href="index.html#contact" class="btn-cta outline">Contact Us</a>
+        </div>
+        
+        <div class="pricing-card popular animate-fade-up delay-2">
+          <div class="popular-badge">Most Popular</div>
+          <div class="pricing-icon"><i class="fas fa-chart-line"></i></div>
+          <h3>Business</h3>
+          <div class="price">Custom</div>
+          <ul>
+            <li><i class="fas fa-check"></i> Custom OTP volume</li>
+            <li><i class="fas fa-check"></i> Custom email templates</li>
+            <li><i class="fas fa-check"></i> Priority support</li>
+            <li><i class="fas fa-check"></i> Advanced analytics</li>
+            <li><i class="fas fa-check"></i> SLA guarantee</li>
+          </ul>
+          <a href="index.html#contact" class="btn-cta">Contact Us</a>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2 style="font-size: 2.2rem; text-align: center; margin-bottom: 20px;" class="animate-fade-up">Frequently Asked Questions</h2>
+      <p style="font-size: 1.1rem; color: #4a5a6a; text-align: center; max-width: 750px; margin: 0 auto 40px;" class="animate-fade-up delay-1">Got questions about Email OTP? We've got answers.</p>
+      <div class="faq-container animate-fade-up delay-2" id="faqContainer"></div>
+    </section>
+
+    <section class="cta-section animate-fade-up">
+      <h2>Ready to add OTP verification to your app?</h2>
+      <p>Contact us today to discuss your requirements and get a custom quote for your business.</p>
+      <a href="index.html#contact" class="btn-cta">Contact Us Now</a>
+    </section>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="image/Backstateck.png" alt="Stateck Labs logo" style="width: 160px; margin-bottom: 18px;">
+          <p>Minimal, powerful digital products for startups. We design and build with clarity and purpose.</p>
+        </div>
+        <div class="footer-links">
+          <h4>Pages</h4>
+          <div class="pages-grid">
+            <a href="index.html">Home</a> <a href="index.html#services">Services</a> <a href="index.html#platforms">Platforms</a>
+            <a href="index.html#about">About</a> <a href="index.html#work">Work</a> <a href="index.html#faq">FAQ</a>
+            <a href="index.html#contact">Contact</a> <a href="terms.html">Terms</a> <a href="privacy.html">Privacy</a>
+          </div>
+        </div>
+        <div class="footer-contact">
+          <h4>Contact</h4>
+          <div><i class="fas fa-envelope"></i> Statecklabs@gmail.com</div>
+          <div><i class="fas fa-phone-alt"></i> +251 988160707</div>
+          <div><i class="fas fa-map-pin"></i> Lebu · Addis Ababa, Ethiopia</div>
+          <div style="display: flex; gap: 20px; margin-top: 20px;">
+            <a href="https://www.linkedin.com/in/stateck-labs-01a792435/?isSelfProfile=true" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://www.instagram.com/statecklabs?stkn=eDZ3eW85bDllanJv" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.tiktok.com/@mikhel.dev" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+            <a href="https://t.me/Statecklabs" aria-label="Telegram"><i class="fab fa-telegram-plane"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">© 2026 Stateck Labs. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <script>
+    window.addEventListener('scroll', () => {
+      const navbar = document.getElementById('navbar');
+      if (window.scrollY > 20) navbar.classList.add('scrolled');
+      else navbar.classList.remove('scrolled');
+    });
+
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileDropdown = document.getElementById('mobileDropdown');
+    const mobileOverlay = document.getElementById('mobileOverlay');
+    const closeMenuBtn = document.getElementById('closeMenuBtn');
+    
+    function openMobileMenu() { mobileDropdown.classList.add('active'); mobileOverlay.classList.add('active'); document.body.style.overflow = 'hidden'; }
+    function closeMobileMenu() { mobileDropdown.classList.remove('active'); mobileOverlay.classList.remove('active'); document.body.style.overflow = ''; }
+    
+    mobileMenuBtn.addEventListener('click', openMobileMenu);
+    closeMenuBtn.addEventListener('click', closeMobileMenu);
+    mobileOverlay.addEventListener('click', closeMobileMenu);
+    document.querySelectorAll('.mobile-dropdown a').forEach(link => { link.addEventListener('click', closeMobileMenu); });
+
+    const faqs = [
+      { question: "How does Email OTP work?", answer: "Our system generates a unique one-time password and sends it to the user's email address. The user enters the code in your application, and we verify if it's correct. Simple and secure." },
+      { question: "How quickly are OTPs delivered?", answer: "OTPs are typically delivered within 3-5 seconds. Delivery time may vary slightly based on the recipient's email provider." },
+      { question: "Can I customize the email template?", answer: "Yes! Business plans allow you to fully customize the email template with your brand logo, colors, and custom messaging." },
+      { question: "Is the OTP secure?", answer: "Absolutely. OTPs are generated using cryptographically secure random numbers, have a short expiration time (typically 5-10 minutes), and are single-use only." },
+      { question: "What happens if the OTP expires?", answer: "Users can request a new OTP. Each request generates a fresh, unique code with a new expiration time." },
+      { question: "How do I get started?", answer: "Contact us through the form on our main page. We'll discuss your requirements and provide you with API access and documentation." }
+    ];
+
+    document.getElementById('faqContainer').innerHTML = faqs.map((faq, index) => `
+      <div class="faq-item" data-index="${index}">
+        <div class="faq-question">
+          <h3>${faq.question}</h3>
+          <i class="fas fa-plus"></i>
+        </div>
+        <div class="faq-answer">
+          <p>${faq.answer}</p>
+        </div>
+      </div>
+    `).join('');
+
+    document.querySelectorAll('.faq-question').forEach(question => {
+      question.addEventListener('click', function() {
+        const item = this.parentElement;
+        const wasActive = item.classList.contains('active');
+        
+        document.querySelectorAll('.faq-item').forEach(i => {
+          i.classList.remove('active');
+          i.querySelector('.faq-answer').classList.remove('show');
+        });
+        
+        if (!wasActive) {
+          item.classList.add('active');
+          item.querySelector('.faq-answer').classList.add('show');
+        }
+      });
+    });
+
+    const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.animate-fade-up, .animate-fade').forEach(el => {
+      if (!el.classList.contains('platform-hero')) {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(30px)';
+        observer.observe(el);
+      }
+    });
+  </script>
+</body>
+</html>

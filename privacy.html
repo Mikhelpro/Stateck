@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Privacy Policy - Stateck Labs</title>
+  <meta name="description" content="Privacy Policy for Stateck Labs. Learn how we collect, use, and protect your personal information.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://statecklabs.pro.et/privacy.html">
+  <link rel="icon" type="image/png" href="image/Stateck logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: #ffffff;
+      color: #111;
+      font-family: 'Roboto', sans-serif;
+      font-weight: 500;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    h1, h2, h3, h4 { font-family: 'Montserrat', sans-serif; font-weight: 800; letter-spacing: -0.02em; }
+    :root { 
+      --electric-blue: #2D9CFF; 
+      --electric-blue-dark: #1a7ec9;
+      --electric-blue-light: #e0f0ff;
+      --border-light: #eaeef2; 
+    }
+    
+    /* Animation Keyframes */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .animate-fade-up { animation: fadeInUp 0.6s ease forwards; opacity: 0; }
+    
+    .container { 
+      width: 100%;
+      max-width: 100%;
+      margin: 0 auto; 
+      padding: 0 80px; 
+    }
+    body { padding-top: 90px; }
+    
+    /* Navbar */
+    .navbar {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 92%;
+      max-width: 1600px;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(14px);
+      border: 1px solid rgba(45,156,255,0.15);
+      border-radius: 60px;
+      padding: 14px 36px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      box-shadow: 0 4px 20px -8px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+    }
+    .navbar.scrolled {
+      background: rgba(255,255,255,0.98);
+      box-shadow: 0 4px 20px -8px rgba(0,0,0,0.15);
+    }
+    .logo img { width: 150px; height: auto; display: block; transition: transform 0.3s ease; }
+    .logo:hover img { transform: scale(1.02); }
+    
+    .nav-links {
+      display: flex;
+      gap: 40px;
+      align-items: center;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: #1a1a1a;
+      font-size: 1.05rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--electric-blue);
+      transition: width 0.3s ease;
+    }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-links a:hover { color: var(--electric-blue); }
+    .nav-links .btn-cta { padding: 8px 28px; font-size: 0.95rem; margin-left: 0; background: var(--electric-blue); color: white; border-radius: 50px; text-decoration: none; font-weight: 800; transition: all 0.3s ease; display: inline-block; }
+    .nav-links .btn-cta:hover { background: #1a7ec9; transform: translateY(-2px); }
+    .nav-links .btn-cta::after { display: none; }
+    
+    /* Mobile Menu */
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.8rem;
+      color: var(--electric-blue);
+      cursor: pointer;
+      padding: 8px;
+      transition: transform 0.3s ease;
+    }
+    .mobile-menu-btn:hover { transform: scale(1.1); }
+    .mobile-menu-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 999;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+    .mobile-menu-overlay.active { opacity: 1; visibility: visible; }
+    .mobile-dropdown {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 80%;
+      max-width: 320px;
+      height: 100%;
+      background: white;
+      z-index: 1002;
+      padding: 100px 30px 40px;
+      box-shadow: -5px 0 30px rgba(0,0,0,0.1);
+      transition: right 0.3s ease;
+      overflow-y: auto;
+    }
+    .mobile-dropdown.active { right: 0; }
+    .mobile-dropdown .close-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: none;
+      border: none;
+      font-size: 1.8rem;
+      color: var(--electric-blue);
+      cursor: pointer;
+    }
+    .mobile-dropdown a {
+      display: block;
+      padding: 16px 0;
+      text-decoration: none;
+      color: #1a1a1a;
+      font-size: 1.2rem;
+      font-weight: 600;
+      border-bottom: 1px solid #eaeef2;
+      transition: all 0.3s ease;
+    }
+    .mobile-dropdown a:hover { color: var(--electric-blue); padding-left: 10px; }
+    .mobile-dropdown .btn-cta {
+      display: inline-block;
+      margin-top: 20px;
+      text-align: center;
+      width: 100%;
+      padding: 14px;
+      background: var(--electric-blue);
+      color: white;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 800;
+    }
+    
+    /* Content Section */
+    .content-section {
+      max-width: 1100px;
+      margin: 40px auto 60px;
+      background: white;
+      border-radius: 32px;
+      padding: 50px 60px;
+      border: 1px solid var(--border-light);
+      box-shadow: 0 10px 30px -15px rgba(0,0,0,0.05);
+    }
+    
+    .content-section h1 {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+      color: var(--electric-blue);
+    }
+    
+    .last-updated {
+      color: #6c757d;
+      font-size: 0.9rem;
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border-light);
+    }
+    
+    .content-section h2 {
+      font-size: 1.5rem;
+      margin: 35px 0 15px;
+      color: #111;
+    }
+    
+    .content-section h3 {
+      font-size: 1.2rem;
+      margin: 25px 0 12px;
+      color: #111;
+    }
+    
+    .content-section p {
+      margin-bottom: 15px;
+      color: #4a5568;
+      line-height: 1.7;
+    }
+    
+    .content-section ul {
+      margin: 15px 0 20px 25px;
+      color: #4a5568;
+    }
+    
+    .content-section li {
+      margin-bottom: 8px;
+    }
+    
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border-light);
+      color: var(--electric-blue);
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    
+    .back-link:hover {
+      gap: 15px;
+      color: var(--electric-blue-dark);
+    }
+    
+    /* Footer */
+    .footer {
+      background: #f5f9ff;
+      border-radius: 48px 48px 0 0;
+      padding: 60px 60px 40px;
+      margin-top: 80px;
+    }
+    .footer-grid {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 50px;
+      margin-bottom: 50px;
+    }
+    .footer-brand p { max-width: 360px; margin-top: 20px; font-size: 0.95rem; color: #3a4a5a; line-height: 1.7; }
+    .footer-links h4, .footer-contact h4 { font-size: 1.2rem; margin-bottom: 25px; }
+    .pages-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px 30px;
+    }
+    .footer a { 
+      text-decoration: none; 
+      color: #2c3e50; 
+      font-size: 0.95rem; 
+      transition: all 0.3s ease;
+      display: inline-block;
+    }
+    .footer a:hover { color: var(--electric-blue); transform: translateX(5px); }
+    .footer-contact div {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 18px;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+    }
+    .footer-contact div:hover { transform: translateX(5px); }
+    .footer-contact i { color: var(--electric-blue); width: 24px; font-size: 1.1rem; transition: transform 0.3s ease; }
+    .footer-contact div:hover i { transform: scale(1.1); }
+    .footer-bottom { text-align: center; padding-top: 30px; border-top: 1px solid rgba(45,156,255,0.2); font-size: 0.9rem; }
+    
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .container { padding: 0 40px; }
+    }
+    
+    @media (max-width: 900px) {
+      body { padding-top: 85px; }
+      .container { padding: 0 30px; }
+      .nav-links { display: none; }
+      .mobile-menu-btn { display: block; }
+      .navbar { width: 94%; padding: 12px 25px; justify-content: space-between; }
+      .logo img { width: 120px; }
+      .content-section { padding: 35px 30px; margin: 30px auto 50px; }
+      .content-section h1 { font-size: 2rem; }
+      .content-section h2 { font-size: 1.3rem; }
+      .footer { padding: 45px 35px 35px; border-radius: 40px 40px 0 0; }
+      .footer-grid { flex-direction: column; gap: 35px; }
+      .pages-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    
+    @media (max-width: 600px) {
+      body { padding-top: 80px; }
+      .container { padding: 0 20px; }
+      .navbar { width: 96%; padding: 10px 18px; border-radius: 50px; }
+      .logo img { width: 100px; }
+      .mobile-menu-btn { font-size: 1.5rem; }
+      .content-section { padding: 25px 20px; }
+      .content-section h1 { font-size: 1.6rem; }
+      .content-section h2 { font-size: 1.2rem; }
+      .footer { padding: 35px 25px 30px; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar" id="navbar">
+    <a href="index.html" class="logo"><img src="image/Backstateck.png" alt="Stateck Labs"></a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="index.html#services">Services</a>
+      <a href="index.html#platforms">Platforms</a>
+      <a href="index.html#about">About</a>
+      <a href="index.html#faq">FAQ</a>
+      <a href="index.html#contact" class="btn-cta">Get started</a>
+    </div>
+    <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+  </nav>
+  <div class="mobile-menu-overlay" id="mobileOverlay"></div>
+  <div class="mobile-dropdown" id="mobileDropdown">
+    <button class="close-btn" id="closeMenuBtn"><i class="fas fa-times"></i></button>
+    <a href="index.html">Home</a>
+    <a href="index.html#services">Services</a>
+    <a href="index.html#platforms">Platforms</a>
+    <a href="index.html#about">About</a>
+    <a href="index.html#faq">FAQ</a>
+    <a href="index.html#contact" class="btn-cta">Get started</a>
+  </div>
+
+  <div class="container">
+    <div class="content-section animate-fade-up">
+      <h1>Privacy Policy</h1>
+      <div class="last-updated">Last updated: April 9, 2025</div>
+      
+      <h2>1. Information We Collect</h2>
+      <p>We collect information you provide directly to us when you:</p>
+      <ul>
+        <li>Contact us through our website forms</li>
+        <li>Use our Digital Yearbook platform</li>
+        <li>Use our Telegram Feedback Bot</li>
+        <li>Use our Email OTP service</li>
+        <li>Subscribe to our updates</li>
+        <li>Communicate with our team</li>
+      </ul>
+      <p>This information may include your name, email address, phone number, company name, project details, and any other information you choose to provide.</p>
+      
+      <h3>1.1 Digital Yearbook</h3>
+      <p>When using Digital Yearbook, we collect student names, photos, quotes, achievements, and other content you choose to upload. This content is stored securely and is only accessible to authorized users of your yearbook.</p>
+      
+      <h3>1.2 Telegram Feedback Bot</h3>
+      <p>The Telegram Feedback Bot collects responses from users who interact with your bot. You control what questions are asked and what data is collected. We do not access or use this data except to provide the service to you.</p>
+      
+      <h3>1.3 Email OTP Service</h3>
+      <p>Our Email OTP service processes email addresses to send verification codes. We do not store email addresses longer than necessary for the authentication process.</p>
+      
+      <h2>2. How We Use Your Information</h2>
+      <p>We use the information we collect to:</p>
+      <ul>
+        <li>Provide, maintain, and improve our services</li>
+        <li>Respond to your inquiries and communicate with you</li>
+        <li>Send you technical notices and support messages</li>
+        <li>Detect, prevent, and address technical issues</li>
+        <li>Comply with legal obligations</li>
+      </ul>
+      
+      <h2>3. Data Security</h2>
+      <p>We implement appropriate technical and organizational measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction. These measures include:</p>
+      <ul>
+        <li>Encryption of data in transit and at rest</li>
+        <li>Regular security assessments and updates</li>
+        <li>Access controls and authentication protocols</li>
+        <li>Secure data centers with industry-standard protections</li>
+      </ul>
+      
+      <h2>4. Data Retention</h2>
+      <p>We retain your personal information for as long as necessary to fulfill the purposes outlined in this Privacy Policy, unless a longer retention period is required or permitted by law. You may request deletion of your data at any time.</p>
+      
+      <h2>5. Sharing of Information</h2>
+      <p>We do not sell, trade, or rent your personal information to third parties. We may share information with:</p>
+      <ul>
+        <li>Service providers who assist us in operating our business (email delivery, hosting, analytics)</li>
+        <li>Law enforcement when required by law or to protect our rights</li>
+        <li>Successors in the event of a merger, acquisition, or sale of assets</li>
+      </ul>
+      
+      <h2>6. Cookies and Tracking</h2>
+      <p>We use cookies and similar tracking technologies to enhance your experience on our website. Cookies help us understand how you use our site and improve our services. You can set your browser to refuse cookies, but some features may not function properly.</p>
+      
+      <h2>7. Third-Party Links</h2>
+      <p>Our website may contain links to third-party websites. We are not responsible for the privacy practices or content of these sites. We encourage you to read their privacy policies before providing any personal information.</p>
+      
+      <h2>8. Your Rights</h2>
+      <p>Depending on your location, you may have the following rights regarding your personal information:</p>
+      <ul>
+        <li>Right to access – Request a copy of your personal data</li>
+        <li>Right to rectification – Correct inaccurate or incomplete data</li>
+        <li>Right to erasure – Request deletion of your data</li>
+        <li>Right to restrict processing – Limit how we use your data</li>
+        <li>Right to data portability – Receive your data in a structured format</li>
+        <li>Right to object – Object to certain data processing activities</li>
+      </ul>
+      <p>To exercise these rights, please contact us at Statecklabs@gmail.com.</p>
+      
+      <h2>9. Children's Privacy</h2>
+      <p>Our services are not directed to children under 13. We do not knowingly collect personal information from children under 13. If you believe a child has provided us with personal information, please contact us, and we will take steps to delete such information.</p>
+      
+      <h2>10. International Data Transfers</h2>
+      <p>Your information may be transferred to and processed in countries other than your own. We ensure appropriate safeguards are in place to protect your data in accordance with this Privacy Policy.</p>
+      
+      <h2>11. Changes to This Policy</h2>
+      <p>We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new policy on this page and updating the "Last updated" date. Your continued use of our services after any such changes constitutes your acceptance of the new policy.</p>
+      
+      <h2>12. Contact Us</h2>
+      <p>If you have any questions about this Privacy Policy or our data practices, please contact us at:</p>
+      <p><strong>Email:</strong> Statecklabs@gmail.com<br>
+      <strong>Phone:</strong> +251 988160707<br>
+      <strong>Address:</strong> Lebu, Addis Ababa, Ethiopia</p>
+      
+      <a href="index.html" class="back-link">
+        <i class="fas fa-arrow-left"></i> Back to Home
+      </a>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="image/Backstateck.png" alt="Stateck Labs" style="width: 160px; margin-bottom: 18px;">
+          <p>Minimal, powerful digital products for startups. We design and build with clarity and purpose.</p>
+        </div>
+        <div class="footer-links">
+          <h4>Pages</h4>
+          <div class="pages-grid">
+            <a href="index.html">Home</a> <a href="index.html#services">Services</a> <a href="index.html#platforms">Platforms</a>
+            <a href="index.html#about">About</a> <a href="index.html#work">Work</a> <a href="index.html#faq">FAQ</a>
+            <a href="index.html#contact">Contact</a> <a href="terms.html">Terms</a> <a href="privacy.html">Privacy</a>
+          </div>
+        </div>
+        <div class="footer-contact">
+          <h4>Contact</h4>
+          <div><i class="fas fa-envelope"></i> Statecklabs@gmail.com</div>
+          <div><i class="fas fa-phone-alt"></i> +251 988160707</div>
+          <div><i class="fas fa-map-pin"></i> Lebu · Addis Ababa, Ethiopia</div>
+          <div style="display: flex; gap: 20px; margin-top: 20px;">
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-tiktok"></i></a>
+            <a href="#"><i class="fab fa-telegram-plane"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">© 2026 Stateck Labs. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <script>
+    window.addEventListener('scroll', () => {
+      const navbar = document.getElementById('navbar');
+      if (window.scrollY > 20) navbar.classList.add('scrolled');
+      else navbar.classList.remove('scrolled');
+    });
+
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileDropdown = document.getElementById('mobileDropdown');
+    const mobileOverlay = document.getElementById('mobileOverlay');
+    const closeMenuBtn = document.getElementById('closeMenuBtn');
+    
+    function openMobileMenu() { mobileDropdown.classList.add('active'); mobileOverlay.classList.add('active'); document.body.style.overflow = 'hidden'; }
+    function closeMobileMenu() { mobileDropdown.classList.remove('active'); mobileOverlay.classList.remove('active'); document.body.style.overflow = ''; }
+    
+    mobileMenuBtn.addEventListener('click', openMobileMenu);
+    closeMenuBtn.addEventListener('click', closeMobileMenu);
+    mobileOverlay.addEventListener('click', closeMobileMenu);
+    document.querySelectorAll('.mobile-dropdown a').forEach(link => { link.addEventListener('click', closeMobileMenu); });
+  </script>
+</body>
+</html>
